@@ -2,18 +2,26 @@
 
 using HelloWorld.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace HelloWorld.Data
 {
     public class DataContextEF : DbContext
     {
-        public DbSet<Computer>? Computer { get; set; } 
+        private IConfiguration _config;
+        public DataContextEF(IConfiguration config)
+        {
+            _config = config;
+        }
+
+
+
+        public DbSet<Computer>? Computer { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             if (!options.IsConfigured)
             {
-                // options.UseSqlServer("Server=localhost;Database=DotNetCourseDatabase;Trusted_connection=false;TrustServerCertificate=True;User Id=sa;Password=SQLConnect1;",
-                options.UseSqlServer("Server=localhost;Database=DotNetCourseDatabase;Trusted_Connection=true;TrustServerCertificate=true;",
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"),
                     options => options.EnableRetryOnFailure());
             }
         }
@@ -25,10 +33,10 @@ namespace HelloWorld.Data
             modelBuilder.Entity<Computer>()
                 // .HasNoKey()
                 .HasKey(c => c.ComputerId);
-                // .ToTable("Computer", "TutorialAppSchema");
-                // .ToTable("TableName", "SchemaName");
+            // .ToTable("Computer", "TutorialAppSchema");
+            // .ToTable("TableName", "SchemaName");
         }
-        
+
 
     }
 }

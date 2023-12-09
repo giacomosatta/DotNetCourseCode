@@ -62,3 +62,11 @@ C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\obj\Debug\net8.0
 C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\obj\Debug\net8.0\HelloWorld.pdb
 C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\obj\Debug\net8.0\HelloWorld.genruntimeconfig.cache
 C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\obj\Debug\net8.0\ref\HelloWorld.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\obj\Debug\net8.0\HelloWorld.sourcelink.json
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Microsoft.Extensions.Configuration.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\appsettings.json
