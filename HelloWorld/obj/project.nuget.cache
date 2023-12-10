@@ -1,14 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "GEzpTrDEMbCsLpFfxBPkzwqYBKUmK0m1P+9m8FBLYY8JqQD5RvfJejJO1pmkJZzgTJP5l/VoiIh9kR5yKH5g6A==",
+  "dgSpecHash": "n67sCU7u0L+MbSinOZ+NxTqyFu2iIptWlpBvNovDlc/W9BFuScAf2aj1P8DT8vl82Y2RZdYhSWF/bdv2LSclxg==",
   "success": true,
   "projectFilePath": "C:\\Users\\giacomo.satta\\source\\repos\\DotNetCourseCode\\HelloWorld\\HelloWorld.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\giacomo.satta\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\giacomo.satta\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\giacomo.satta\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\giacomo.satta\\.nuget\\packages\\dapper\\2.1.24\\dapper.2.1.24.nupkg.sha512",
     "C:\\Users\\giacomo.satta\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
-    "C:\\Users\\giacomo.satta\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\giacomo.satta\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\giacomo.satta\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.2\\microsoft.data.sqlclient.5.1.2.nupkg.sha512",
     "C:\\Users\\giacomo.satta\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.1\\microsoft.data.sqlclient.sni.runtime.5.1.1.nupkg.sha512",
     "C:\\Users\\giacomo.satta\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0\\microsoft.entityframeworkcore.8.0.0.nupkg.sha512",

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="microsoft.data.sqlclient" Version="5.1.2" />
     <PackageReference Include="microsoft.entityframeworkcore" Version="8.0.0" />

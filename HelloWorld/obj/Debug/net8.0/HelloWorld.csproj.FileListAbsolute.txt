@@ -71,3 +71,4 @@ C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0
 C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Microsoft.Extensions.FileSystemGlobbing.dll
 C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\appsettings.json
 C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\giacomo.satta\source\repos\DotNetCourseCode\HelloWorld\bin\Debug\net8.0\AutoMapper.dll
