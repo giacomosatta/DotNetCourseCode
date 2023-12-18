@@ -39,14 +39,14 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("GetUserJobInfos")]
-    public IEnumerable<UserJobInfo> GetUserJobInfos()
+    public IEnumerable<UserSalary> GetUserJobInfos()
     {
         string sql = @"SELECT [UserId],
                               [JobTitle],
                               [Department]
                      FROM TutorialAppSchema.UserJobInfo";
 
-        return _dapper.LoadData<UserJobInfo>(sql);
+        return _dapper.LoadData<UserSalary>(sql);
 
     }
 
@@ -78,7 +78,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("GetSingleUserJobInfos/{userId}")]
-    public UserJobInfo GetSingleUserJobInfo(string userId)
+    public UserSalary GetSingleUserJobInfo(string userId)
     {
         string sql = @$"SELECT [UserId],
                               [JobTitle],
@@ -86,7 +86,7 @@ public class UserController : ControllerBase
                      FROM TutorialAppSchema.UserJobInfo
                      WHERE UserId = {userId}";
 
-        return _dapper.LoadDataSingle<UserJobInfo>(sql);
+        return _dapper.LoadDataSingle<UserSalary>(sql);
 
     }
 
@@ -174,12 +174,14 @@ public class UserController : ControllerBase
 
 
     [HttpPost("AddUserJobInfo")]
-    public IActionResult AddUserJobInfo(UserJobInfoToAddDto userJobInfo)
+    public IActionResult AddUserJobInfo(UserJobInfo userJobInfo)
     {
         string sql = @$"INSERT INTO TutorialAppSchema.UserJobInfo(
+                            [UserId],
                             [JobTitle],
                             [Department]
                         )VAlUES(
+                            '{userJobInfo.UserId}',
                             '{userJobInfo.JobTitle}',
                             '{userJobInfo.Department}'
                         )";

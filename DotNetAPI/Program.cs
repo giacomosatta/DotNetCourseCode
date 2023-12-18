@@ -1,3 +1,6 @@
+using DotnetAPI.Data;
+using DotnetAPI.Data.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args); //Crea il server per le chiamate APIs
 
 builder.Services.AddControllers();
@@ -26,6 +29,8 @@ builder.Services.AddCors((options) =>
     });
 
 });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
