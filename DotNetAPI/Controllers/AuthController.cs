@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Data.SqlClient;
 
 namespace DotnetAPI.Controllers;
-class AuthController : ControllerBase
+
+public class AuthController : ControllerBase
 {
     private readonly DataContextDapper _dapper;
     private IConfiguration _config;
@@ -35,20 +36,7 @@ class AuthController : ControllerBase
             rng.GetNonZeroBytes(passwordSalt);
         }
 
-        string passwordSaltPlusString = _config.GetSection("AppSettings:PasswordKey").Value + Convert.ToBase64String(passwordSalt);
-
-        byte[] passwordHash = KeyDerivation.Pbkdf2(
-            password: userForRegistration.Password,
-            salt: Encoding.ASCII.GetBytes(passwordSaltPlusString),
-            prf: KeyDerivationPrf.HMACSHA256,
-            iterationCount: 100000,
-            numBytesRequested: 256 / 8
-        );
-
-        // string sqlAddAuth = @$"INSERT INTO TutorialAppSchema.Auth ([Email],
-        //                             [PasswordHash],
-        //                             [PasswordSalt]) VALUES ('{userForRegistration.Email}' 
-        //                             , {passwordHash}, {passwordSalt})";
+        byte[] passwordHash = GetPasswordHash(userForRegistration.Password, passwordSalt);
 
         string sqlAddAuth = @$"INSERT INTO TutorialAppSchema.Auth ([Email],
                                     [PasswordHash],
@@ -70,13 +58,57 @@ class AuthController : ControllerBase
 
         if (!_dapper.ExecuteSqlWithParameters(sqlAddAuth, sqlParameters)) throw new Exception("Failed to register user.");
 
+        string sqlAddUser = @$"INSERT INTO TutorialAppSchema.Users(
+                            [FirstName],
+                            [LastName],
+                            [Email],
+                            [Gender],
+                            [Active] 
+                        )VAlUES(
+                            '{userForRegistration.FirstName}',
+                            '{userForRegistration.LastName}',
+                            '{userForRegistration.Email}',
+                            '{userForRegistration.Gender}',
+                            '1'
+                        )";
+
+        if (!_dapper.ExecuteSql(sqlAddUser)) throw new Exception("Failed to Add User");
+
         return Ok();
     }
 
     [HttpPost("Login")]
     public IActionResult Login(UserForLoginDto userForLogin)
     {
+        string sqlForHashAndSalt = @$"SELECT [PasswordHash],
+                                            [PasswordSalt] FROM TutorialAppSchema.Auth WHERE Email = '{userForLogin.Email}'";
+
+        UserForLoginConfirmationDto userForLoginConfirmation = _dapper.LoadDataSingle<UserForLoginConfirmationDto>(sqlForHashAndSalt);
+
+        byte[] passwordHash = GetPasswordHash(userForLogin.Password, userForLoginConfirmation.PasswordSalt);
+
+        // if(passwordHash == userForLoginConfirmation.PasswordHash) Won't work
+
+        for (int index = 0; index < passwordHash.Length; index++)
+        {
+            if (passwordHash[index] != userForLoginConfirmation.PasswordHash[index])
+                return StatusCode(401, "Incorrect password");
+        }
+
         return Ok();
+    }
+
+    private byte[] GetPasswordHash(string password, byte[] passwordSalt)
+    {
+        string passwordSaltPlusString = _config.GetSection("AppSettings:PasswordKey").Value + Convert.ToBase64String(passwordSalt);
+
+        return KeyDerivation.Pbkdf2(
+            password: password,
+            salt: Encoding.ASCII.GetBytes(passwordSaltPlusString),
+            prf: KeyDerivationPrf.HMACSHA256,
+            iterationCount: 100000,
+            numBytesRequested: 256 / 8
+        );
     }
 
 
