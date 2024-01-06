@@ -56,8 +56,6 @@ public class UserCompleteController : ControllerBase
                     @Salary = '{user.Salary}',
                     @UserId = {user.UserId}";
 
-        Console.WriteLine(sql);
-
         return _dapper.ExecuteSql(sql) ? Ok() : throw new Exception("Failed to update User");
     }
 

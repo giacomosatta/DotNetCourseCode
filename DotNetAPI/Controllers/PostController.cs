@@ -65,8 +65,8 @@ public class PostController : ControllerBase
     [HttpDelete("Post/{postId}")]
     public IActionResult DeletePost(int postId)
     {
-        string sql = @$"DELETE FROM TutorialAppSchema.Posts WHERE PostId = {postId}
-                        AND UserId = " + User.FindFirst("userId")?.Value;
+        string sql = @$"TutorialAppSchema.spPost_Delete @PostId = {postId}
+                        , @UserId = " + User.FindFirst("userId")?.Value;
 
         if (!_dapper.ExecuteSql(sql)) throw new Exception("Failed to delete post!");
 
