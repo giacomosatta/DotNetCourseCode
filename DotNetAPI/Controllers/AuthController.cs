@@ -1,7 +1,9 @@
 using System.Security.Cryptography;
+using AutoMapper;
 using Dapper;
 using DotnetAPI.Data;
 using DotnetAPI.Helpers;
+using DotnetAPI.Models;
 using DotnetAPI.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +19,22 @@ public class AuthController : ControllerBase
     private readonly DataContextDapper _dapper;
     private IConfiguration _config;
     private readonly AuthHelper _authHelper;
+    private readonly IMapper _mapper;
+
+    private readonly ReusableSql _reusableSql;
+
     public AuthController(IConfiguration config)
     {
         _dapper = new DataContextDapper(config);
         _config = config;
         _authHelper = new AuthHelper(config);
+        _reusableSql = new ReusableSql(config);
+        _mapper = new Mapper(new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<UserForRegistrationDto, UserComplete>();
+        }));
+
+
     }
 
     [AllowAnonymous]
@@ -44,20 +57,10 @@ public class AuthController : ControllerBase
 
         if (!_authHelper.SetPassword(userForResetPassword)) throw new Exception("Failed to register userForRegistration.");
 
-        string sqlAddUser = $@"
-            EXEC TutorialAppSchema.spUser_Upsert
-                    @FirstName ='{userForRegistration.FirstName}',
-                    @LastName ='{userForRegistration.LastName}',
-                    @Email ='{userForRegistration.Email}',
-                    @Gender ='{userForRegistration.Gender}',
-                    @Active = 1,
-                    @JobTitle = '{userForRegistration.JobTitle}',
-                    @Department = '{userForRegistration.Department}',
-                    @Salary = {userForRegistration.Salary}";
+        UserComplete userComplete = _mapper.Map<UserComplete>(userForRegistration);
+        userComplete.Active = true;
 
-        if (!_dapper.ExecuteSql(sqlAddUser)) throw new Exception("Failed to Add User");
-
-        return Ok();
+        return _reusableSql.UpsertUser(userComplete) ? Ok() : throw new Exception("Failed to update User");
     }
 
     [HttpPut("ResetPassword")]
